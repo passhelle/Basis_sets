@@ -10,6 +10,23 @@ def copy_file(file_in, file_out):
                 f1.write(line)
 
 
+def clean_file(filename):
+    with open(filename) as f:
+        clean_list = []
+        for line in f:
+            clean_list.append(line)
+    last_index = len(clean_list) - 1
+    for i in range(len(clean_list) - 1, 0, -1):
+        if clean_list[i] != "":
+            last_index = i
+            break
+    clean_list = clean_list[0::last_index]
+    with open(filename, "w") as f1:
+        for line in clean_list:
+            f1.write(line)
+
+
+
 name = input("type in filename")
 bas = input("type in basis set") # issue with default parameters
 soft = input("type in software name") # issue with default parameters
@@ -28,6 +45,7 @@ element_list = FindEl(name)
 link = make_link(element_list, bas, soft)
 r = requests.get(link)
 text = r.text
+#text[-1] = text[-1].strip('\n')
 text_list = []
 text_list = text.split("\n")
 text_list = text_list[10::]
@@ -35,6 +53,7 @@ text_list = text_list[10::]
 parts = name.split(".")
 name_out = parts[0]  + "_mod." + parts[1]
 copy_file(name, name_out)
+#clean_file(name_out)
 
 for_out = "\n".join(text_list)
 with open(name_out, "a") as ouf:
