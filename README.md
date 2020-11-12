@@ -15,3 +15,8 @@ git clone https://github.com/passhelle/Basis_sets.git
 ```
 python Main.py
 ```
+
+3 . Run test script
+```
+python tests\basic_test.py
+```
