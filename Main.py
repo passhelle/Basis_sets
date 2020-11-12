@@ -26,35 +26,37 @@ def clean_file(filename):
             f1.write(line)
 
 
+def main():
+    name = input("type in filename")
+    bas = input("type in basis set") # issue with default parameters
+    soft = input("type in software name") # issue with default parameters
 
-name = input("type in filename")
-bas = input("type in basis set") # issue with default parameters
-soft = input("type in software name") # issue with default parameters
+    """
+    name = "test1.gjf"
+    bas = ""
+    soft = ""
+    """
 
-"""
-name = "test1.gjf"
-bas = ""
-soft = ""
-"""
+    if bas == "":
+        bas = "def2-tzvp"
+    if soft == "":
+        soft = "gaussian94"
+    element_list = FindEl(name)
+    link = make_link(element_list, bas, soft)
+    r = requests.get(link)
+    text = r.text
+    text_list = []
+    text_list = text.split("\n")
+    text_list = text_list[10::]
 
-if bas == "":
-    bas = "def2-tzvp"
-if soft == "":
-    soft = "gaussian94"
-element_list = FindEl(name)
-link = make_link(element_list, bas, soft)
-r = requests.get(link)
-text = r.text
-#text[-1] = text[-1].strip('\n')
-text_list = []
-text_list = text.split("\n")
-text_list = text_list[10::]
+    parts = name.split(".")
+    name_out = parts[0]  + "_mod." + parts[1]
+    copy_file(name, name_out)
+    #clean_file(name_out)
 
-parts = name.split(".")
-name_out = parts[0]  + "_mod." + parts[1]
-copy_file(name, name_out)
-#clean_file(name_out)
+    for_out = "\n".join(text_list)
+    with open(name_out, "a") as ouf:
+        ouf.write(for_out)
 
-for_out = "\n".join(text_list)
-with open(name_out, "a") as ouf:
-    ouf.write(for_out)
+
+main()
