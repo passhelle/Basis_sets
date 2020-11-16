@@ -21,8 +21,9 @@ def FindEl(filename):
     elements = set()
     full = full[geom_line_number::]
     for j in full:
-        parts = j.split(" ")
-        elements.add(int(parts[0]))
+        if j[0].isdigit():
+            parts = j.split(" ")
+            elements.add(int(parts[0]))
 
     elements = sorted(elements)
     elements = list(map(lambda item: str(item), elements))

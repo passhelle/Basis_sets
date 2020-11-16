@@ -16,6 +16,8 @@ def clean_file(filename):
         for line in f:
             clean_list.append(line)
     last_index = len(clean_list) - 1
+    clean_list[-1] = clean_list[-1].strip()
+    #if clean_list[last_index][-1] == "\n"
     for i in range(len(clean_list) - 1, 0, -1):
         if clean_list[i] != "":
             last_index = i
