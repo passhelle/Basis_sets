@@ -16,13 +16,12 @@ def clean_file(filename):
         for line in f:
             clean_list.append(line)
     last_index = len(clean_list) - 1
-    clean_list[-1] = clean_list[-1].strip()
-    #if clean_list[last_index][-1] == "\n"
     for i in range(len(clean_list) - 1, 0, -1):
-        if clean_list[i] != "":
+        if clean_list[i] != "\n":
             last_index = i
             break
-    clean_list = clean_list[0::last_index]
+    clean_list[last_index] = clean_list[last_index].strip()
+    clean_list = clean_list[0:last_index +1]
     with open(filename, "w") as f1:
         for line in clean_list:
             f1.write(line)
@@ -44,7 +43,7 @@ def main(name, bas, soft):
     parts = name.split(".")
     name_out = parts[0]  + "_mod." + parts[1]
     copy_file(name, name_out)
-    #clean_file(name_out)
+    clean_file(name_out)
 
     for_out = "\n".join(text_list)
     with open(name_out, "a") as ouf:
