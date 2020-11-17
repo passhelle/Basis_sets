@@ -10,7 +10,7 @@ class TestStringMethods(unittest.TestCase):
         results = filecmp.cmp('test1_mod.gjf', 'test1_expected.gjf')
         self.assertTrue(results, "test1 crashed")
 
-    def water_test(self):
+    def test_water(self):
         Parser.main("water.gjf", "", "")
         results = filecmp.cmp('water_mod.gjf', 'water_expected.gjf')
         self.assertTrue(results, "water crashed")
