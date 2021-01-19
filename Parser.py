@@ -48,4 +48,5 @@ def main(name, bas, soft):
     for_out = "\n".join(text_list)
     with open(name_out, "a") as ouf:
         ouf.write(for_out)
+        ouf.write("\n\n\n")
 
